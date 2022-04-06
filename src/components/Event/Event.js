@@ -46,10 +46,6 @@ function Event() {
   // const params = useParams();
   // const eventId = params.id;
 
-  // function favoriteEvent() {
-  // Favorite event fetch call goes here
-  // }
-
   function goingChanged(change) {
     console.info(`Updating going status to: ${change}`);
   }
