@@ -1,0 +1,25 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": {
+      // "@babel/eslint-parser": [".js"],
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*"],
+      "rules": {
+        "react/no-array-index-key": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "react/jsx-filename-extension": "off"
+      }
+    }
+  ]
+}
