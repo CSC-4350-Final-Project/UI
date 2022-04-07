@@ -1,0 +1,11 @@
+@media (min-width: 577px) {
+  .event-info {
+    text-align: right;
+  }
+}
+
+@media (max-width: 576px) {
+  .event-info {
+    text-align: left;
+  }
+}
