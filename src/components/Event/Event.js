@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-// import { useParams } from 'react-router-dom';
 import event from './dummy-event';
 import './Event.css';
 import EventActions from './EventActions/EventActions';
@@ -46,22 +45,22 @@ function Event() {
   // const params = useParams();
   // const eventId = params.id;
 
-  function goingChanged(change) {
-    console.info(`Updating going status to: ${change}`);
+  function goingChanged() {
+    // console.info(`Updating going status to: ${change}`);
   }
 
   function shareEvent() {
-    console.info('Sharing an event!');
+    // console.info('Sharing an event!');
     // share event fetch call goes here
   }
 
   function favoriteEvent() {
-    console.info('Hit favorite on an event!');
+    // console.info('Hit favorite on an event!');
     // favorite event fetch call goes here
   }
 
   function submitComment() {
-    console.info('Submitting a comment!');
+    // console.info('Submitting a comment!');
     // submit a user comment here
   }
 
