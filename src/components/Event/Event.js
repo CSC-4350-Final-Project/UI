@@ -1,49 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import event from './dummy-event';
+import { useParams } from 'react-router-dom';
 import './Event.css';
 import EventActions from './EventActions/EventActions';
 import EventComments from './EventComments/EventComments';
 import EventInfo from './EventInfo/EventInfo';
 
-const dummyComments = [
-  {
-    username: 'facundof13',
-    comment: 'This is the comment that the user left on the event',
-    user_id: 1,
-    date: new Date(),
-  },
-  {
-    username: 'facundof13',
-    comment: 'This is the comment that the user left on the event',
-    user_id: 1,
-    date: new Date(),
-  },
-
-  {
-    username: 'facundof13',
-    comment: 'This is the comment that the user left on the event',
-    user_id: 1,
-    date: new Date(),
-  },
-  {
-    username: 'facundof13',
-    comment: 'This is the comment that the user left on the event',
-    user_id: 1,
-    date: new Date(),
-  },
-  {
-    username: 'facundof13',
-    comment: 'This is the comment that the user left on the event',
-    user_id: 1,
-    date: new Date(),
-  },
-
-];
-
 function Event() {
-  // const params = useParams();
-  // const eventId = params.id;
+  const params = useParams();
+  const [event, setEvent] = useState();
 
   function goingChanged() {
     // console.info(`Updating going status to: ${change}`);
@@ -64,6 +29,16 @@ function Event() {
     // submit a user comment here
   }
 
+  async function getEvent() {
+    const eventId = params.id;
+    const fetchedEvent = await (await fetch(`${process.env.REACT_APP_DOMAIN}/event_detail/${eventId}`)).json();
+    setEvent(fetchedEvent._embedded.events[0]);
+  }
+
+  useEffect(() => {
+    getEvent();
+  }, []);
+
   return (
     <Container>
       <EventInfo event={event} />
@@ -75,7 +50,7 @@ function Event() {
       />
       <EventComments
         event={event}
-        comments={dummyComments}
+        comments={[]}
         submitComment={() => submitComment()}
       />
 

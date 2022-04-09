@@ -20,9 +20,11 @@ EventComment.propTypes = {
     username: PropTypes.string,
     comment: PropTypes.string,
     date: PropTypes.instanceOf(Date),
-  }).isRequired,
+  }),
 };
 
-EventComment.defaultProps = {};
+EventComment.defaultProps = {
+  comment: null,
+};
 
 export default EventComment;

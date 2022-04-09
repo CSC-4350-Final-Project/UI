@@ -28,9 +28,9 @@ function LeaveComment({ submitComment }) {
   );
 }
 LeaveComment.propTypes = {
-  submitComment: PropTypes.func.isRequired,
+  submitComment: PropTypes.func,
 };
 
-LeaveComment.defaultProps = {};
+LeaveComment.defaultProps = { submitComment: null };
 
 export default LeaveComment;

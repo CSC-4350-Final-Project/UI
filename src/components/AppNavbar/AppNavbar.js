@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import {
   Button,
   Container,
@@ -28,7 +27,6 @@ function AppNavbar() {
           <Nav>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
-            <Nav.Link as={Link} to="/event/1">Event</Nav.Link>
             <div className="logout-button">
               {auth.authed
                 ? <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
