@@ -6,10 +6,19 @@ import {
   Nav,
   Navbar,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './AppNavbar.css';
+import useAuth from '../../hooks/useAuth';
 
 function AppNavbar() {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  function logout() {
+    auth.logout();
+    navigate('/');
+  }
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -19,11 +28,11 @@ function AppNavbar() {
           <Nav>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
-            {/* I think this will be removed once we have actual events,
-            now it's there just for testing */}
             <Nav.Link as={Link} to="/event/1">Event</Nav.Link>
             <div className="logout-button">
-              <Button className="ml-auto" variant="outline-danger">Logout</Button>
+              {auth.authed
+                ? <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
+                : <Button as={Link} to="/login" className="ml-auto" variant="outline-success">Login</Button>}
             </div>
           </Nav>
         </Navbar.Collapse>
