@@ -8,21 +8,27 @@ import Event from './components/Event/Event';
 import AppNavbar from './components/AppNavbar/AppNavbar'
 import Search from './components/Search/Search'
 import User from './components/User/User'
+import Login from './components/Login/Login'
 import 'bootstrap/dist/css/bootstrap.css';
+import { AuthProvider } from "./hooks/useAuth";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppNavbar />
-      <Routes>
-        <Route path="event/:id" element={<Event />} />
-        <Route path="search" element={<Search />} />
-        <Route path="user/:id" element={<User />} />
-        <Route path="*" element={<App />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppNavbar />
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Login register={true} />} />
+          <Route path="event/:id" element={<Event />} />
+          <Route path="search" element={<Search />} />
+          <Route path="user/:id" element={<User />} />
+          <Route path="*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
 
