@@ -11,6 +11,7 @@ function EventComments({ comments, submitComment }) {
         <Row>
           <Col>
             <h4 className="text-center">Comments</h4>
+            {comments.length === 0 && <div className="text-center">No comments left for this event.</div>}
           </Col>
         </Row>
         {comments.length > 0 && comments.map(
@@ -28,10 +29,10 @@ EventComments.propTypes = {
     username: PropTypes.string,
     comment: PropTypes.string,
     date: PropTypes.instanceOf(Date),
-  })).isRequired,
-  submitComment: PropTypes.func.isRequired,
+  })),
+  submitComment: PropTypes.func,
 };
 
-EventComments.defaultProps = {};
+EventComments.defaultProps = { comments: [], submitComment: null };
 
 export default EventComments;

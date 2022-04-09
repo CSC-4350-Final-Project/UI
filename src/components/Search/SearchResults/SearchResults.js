@@ -24,9 +24,9 @@ function SearchResults({ results }) {
 }
 
 SearchResults.propTypes = {
-  results: PropTypes.instanceOf(Array).isRequired,
+  results: PropTypes.instanceOf(Array),
 };
 
-SearchResults.defaultProps = {};
+SearchResults.defaultProps = { results: [] };
 
 export default SearchResults;

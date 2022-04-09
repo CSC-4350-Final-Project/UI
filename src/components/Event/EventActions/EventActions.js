@@ -39,11 +39,15 @@ function EventActions({ shareEvent, favoriteEvent, goingChanged }) {
 }
 
 EventActions.propTypes = {
-  shareEvent: PropTypes.func.isRequired,
-  favoriteEvent: PropTypes.func.isRequired,
-  goingChanged: PropTypes.func.isRequired,
+  shareEvent: PropTypes.func,
+  favoriteEvent: PropTypes.func,
+  goingChanged: PropTypes.func,
 };
 
-EventActions.defaultProps = {};
+EventActions.defaultProps = {
+  shareEvent: null,
+  favoriteEvent: null,
+  goingChanged: null,
+};
 
 export default EventActions;
