@@ -7,9 +7,6 @@ import {
   Row,
 } from 'react-bootstrap';
 import SearchResults from './SearchResults/SearchResults';
-import event from '../Event/dummy-event';
-
-const dummyResults = [event, event, event];
 
 function Search() {
   const [form, setForm] = useState({ keyword: '', postalCode: '' });
@@ -18,7 +15,7 @@ function Search() {
 
   async function search() {
     // const body = JSON.stringify(form);
-    setSearchResults(dummyResults);
+    setSearchResults([]);
     setSearched(true);
   }
 
