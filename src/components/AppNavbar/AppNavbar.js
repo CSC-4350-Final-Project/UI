@@ -1,4 +1,5 @@
 import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import {
   Button,
   Container,
@@ -15,7 +16,7 @@ function AppNavbar() {
 
   function logout() {
     auth.logout();
-    navigate('/');
+    navigate('/login');
   }
 
   return (
@@ -28,6 +29,9 @@ function AppNavbar() {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
             <div className="logout-button">
+              <Nav.Link as={Link} to="/user/{user_id}">
+                <Avatar />
+              </Nav.Link>
               {auth.authed
                 ? <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
                 : <Button as={Link} to="/login" className="ml-auto" variant="outline-success">Login</Button>}

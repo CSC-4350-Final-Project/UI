@@ -23,7 +23,7 @@ function useAuth() {
             const token = localStorage.getItem('token');
 
             if (token && token !== 'null') {
-                return { Authorization: `JWT ${token}` };
+                return { Authorization: `Bearer ${token}` };
             }
         }
     };
