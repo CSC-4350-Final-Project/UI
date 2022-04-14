@@ -20,11 +20,11 @@ root.render(
       <BrowserRouter>
         <AppNavbar />
         <Routes>
+          <Route path="user/:id" element={<User />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Login register={true} />} />
           <Route path="event/:id" element={<Event />} />
           <Route path="search" element={<Search />} />
-          <Route path="user/:id" element={<User />} />
           <Route path="*" element={<App />} />
         </Routes>
       </BrowserRouter>
