@@ -21,6 +21,7 @@ function EventCard({
           <Card.Title>{name}</Card.Title>
           <Card.Text>{formattedDate}</Card.Text>
           <Link to={`event/${id}`}>See more details</Link>
+          {/* <Link to={`event/${id}`}>Add to Favorites</Link> */}
         </Card.Body>
       </Card>
     </div>
