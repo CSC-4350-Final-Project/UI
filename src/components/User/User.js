@@ -1,29 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import './User.css';
-
 import {
-  // Button,
   Col,
-  // Container,
-  // Form,
   Row,
   Card,
+  Button,
   ListGroupItem,
   ListGroup,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 function User() {
   const auth = useAuth();
-  // const [userId, setUserId] = useState([]);
-  // const [userUsername, setUserUsername] = useState([]);
-  // const [userEmail, setUserEmail] = useState([]);
+  const [id, setId] = useState([]);
+  const [username, setUsername] = useState([]);
+  const [email, setEmail] = useState([]);
 
   function userInfo() {
     fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => { setId(data.user_id); setUsername(data.username); setEmail(data.email); });
   }
   useEffect(() => { userInfo(); }, []);
 
@@ -31,20 +29,27 @@ function User() {
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
       <Row>
         <Col>
-          <h1 className="text-center">Profile Page</h1>
-          <Card className="user-card" style={{ width: '18rem' }}>
+          <h2 className="text-center">Profile Page</h2>
+          <Card className="user-card" style={{ width: '30rem' }}>
             <Card.Body>
-              <Card.Title><h4>Personal Information</h4></Card.Title>
+              <Card.Title><h3>Personal Information</h3></Card.Title>
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroupItem>User ID:</ListGroupItem>
-              {/* <p>{userId}</p> */}
-              <ListGroupItem>Email:</ListGroupItem>
-              <ListGroupItem>Username: </ListGroupItem>
+              <ListGroupItem>
+                <b>User ID:&nbsp;</b>
+                {id}
+              </ListGroupItem>
+              <ListGroupItem>
+                <b>Email:&nbsp;</b>
+                {email}
+              </ListGroupItem>
+              <ListGroupItem>
+                <b>Username:&nbsp;</b>
+                {username}
+              </ListGroupItem>
             </ListGroup>
             <Card.Body>
-              <Card.Link href="#">...</Card.Link>
-              <Card.Link href="#">...</Card.Link>
+              <Button as={Link} to="/">Close</Button>
             </Card.Body>
           </Card>
         </Col>
