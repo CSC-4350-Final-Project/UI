@@ -9,6 +9,7 @@ import AppNavbar from './components/AppNavbar/AppNavbar'
 import Search from './components/Search/Search'
 import User from './components/User/User'
 import Login from './components/Login/Login'
+import Favorites from './components/Favorites/Favorites'
 import 'bootstrap/dist/css/bootstrap.css';
 import { AuthProvider } from "./hooks/useAuth";
 
@@ -25,7 +26,7 @@ root.render(
           <Route path="event/:id" element={<Event />} />
           <Route path="search" element={<Search />} />
           <Route path="user/:id" element={<User />} />
-          {/* <Route path="favorites" element={<Favorites />} /> */}
+          <Route path="favorites/:id" element={<Favorites />} />
           <Route path="*" element={<App />} />
         </Routes>
       </BrowserRouter>
