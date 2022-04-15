@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import EventComment from './EventComment/EventComment';
 import LeaveComment from './LeaveComment/LeaveComment';
 
-function EventComments({ comments, submitComment }) {
+function EventComments({ comments, submitComment, showLeaveComment }) {
   return (
     <>
       <Row className="mt-3 bg-light rounded p-2 shadow-sm">
@@ -18,7 +18,7 @@ function EventComments({ comments, submitComment }) {
           (comment, index) => <EventComment key={index} comment={comment} />,
         )}
       </Row>
-      <LeaveComment submitComment={submitComment} />
+      {showLeaveComment && <LeaveComment submitComment={(comment) => submitComment(comment)} />}
     </>
   );
 }
@@ -31,8 +31,9 @@ EventComments.propTypes = {
     date: PropTypes.instanceOf(Date),
   })),
   submitComment: PropTypes.func,
+  showLeaveComment: PropTypes.bool,
 };
 
-EventComments.defaultProps = { comments: [], submitComment: null };
+EventComments.defaultProps = { comments: [], submitComment: null, showLeaveComment: false };
 
 export default EventComments;
