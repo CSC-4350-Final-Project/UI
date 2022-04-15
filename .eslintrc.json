@@ -8,13 +8,17 @@
     "import/resolver": {
       // "@babel/eslint-parser": [".js"],
       "node": {
-        "paths": ["src"]
+        "paths": [
+          "src"
+        ]
       }
     }
   },
   "overrides": [
     {
-      "files": ["*"],
+      "files": [
+        "*"
+      ],
       "rules": {
         "react/no-array-index-key": "off",
         "react-hooks/exhaustive-deps": "off",
