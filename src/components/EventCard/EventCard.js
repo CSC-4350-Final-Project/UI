@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import moment from 'moment';
-
-import { Link } from 'react-router-dom';
 import './EventCard.css';
 
 function EventCard({
     id, image, name, date,
 }) {
     const [formattedDate, setFormattedDate] = useState();
+    const [backgroundText, setBackgroundText] = useState('Add Favorite');
+
+    function setStyle() {
+        setBackgroundText('Added');
+    }
 
     useEffect(() => {
         setFormattedDate(moment(date).isValid() ? moment(date).format('MMMM DD, YYYY LT') : 'TBA');
     }, []);
 
     return (
-        <div className="mx-auto">
+        <div className="mx-auto-card">
             <Card style={{ width: '18rem', height: '100%' }}>
                 <Card.Img variant="top" src={image} />
                 <Card.Body>
                     <Card.Title className="text-align">{name}</Card.Title>
                     <Card.Text className="text-align">{formattedDate}</Card.Text>
-                    <Button className="button-align" as={Link} to={`event/${id}`}>See Details</Button>
-                    <Button className="button-align">Add Favorite</Button>
+                    <button className="button-align" type="button">
+                        <a href={`event/${id}`}>Event Details</a>
+                    </button>
+                    <button className="button-align" type="button" onClick={() => setStyle()}>{backgroundText}</button>
                 </Card.Body>
             </Card>
         </div>
