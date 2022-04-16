@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import './Event.css';
 import EventActions from './EventActions/EventActions';
 import EventComments from './EventComments/EventComments';
@@ -8,7 +9,9 @@ import EventInfo from './EventInfo/EventInfo';
 
 function Event() {
   const params = useParams();
+  const auth = useAuth();
   const [event, setEvent] = useState();
+  const [comments, setComments] = useState();
 
   function goingChanged() {
     // console.info(`Updating going status to: ${change}`);
@@ -24,19 +27,35 @@ function Event() {
     // favorite event fetch call goes here
   }
 
-  function submitComment() {
-    // console.info('Submitting a comment!');
-    // submit a user comment here
-  }
-
   async function getEvent() {
     const eventId = params.id;
     const fetchedEvent = await (await fetch(`${process.env.REACT_APP_DOMAIN}/event_detail/${eventId}`)).json();
-    setEvent(fetchedEvent._embedded.events[0]);
+    setEvent(fetchedEvent);
+  }
+
+  async function getComments() {
+    const eventId = params.id;
+    const fetchedComments = await (await fetch(`${process.env.REACT_APP_DOMAIN}/event/${eventId}/comment`)).json();
+    setComments(fetchedComments);
+  }
+
+  async function submitComment(comment) {
+    const eventId = params.id;
+    await (await fetch(`${process.env.REACT_APP_DOMAIN}/event/${eventId}/comment`, {
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    })).json();
+
+    await getComments();
   }
 
   useEffect(() => {
     getEvent();
+    getComments();
   }, []);
 
   return (
@@ -50,8 +69,9 @@ function Event() {
       />
       <EventComments
         event={event}
-        comments={[]}
-        submitComment={() => submitComment()}
+        comments={comments}
+        submitComment={(comment) => submitComment(comment)}
+        showLeaveComment={auth.authed}
       />
 
     </Container>

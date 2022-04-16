@@ -34,7 +34,7 @@ function Login({ register }) {
       alert(res.message);
     }
 
-    setForm({ email: '', password: '', username: '' });
+    setForm({ password: '', username: '' });
   }
 
   return auth.authed ? <Navigate to="/" replace /> : (
