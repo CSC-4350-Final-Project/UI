@@ -50,4 +50,5 @@ AppNavbar.propTypes = {};
 AppNavbar.defaultProps = {};
 
 export default AppNavbar;
+
 /* eslint-enable */
