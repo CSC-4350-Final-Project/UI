@@ -53,3 +53,4 @@ EventCard.defaultProps = {
 export default EventCard;
 
 /* eslint-enable */
+

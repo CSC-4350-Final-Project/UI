@@ -27,3 +27,4 @@ Favorites.defaultProps = {};
 export default Favorites;
 
 /* eslint-enable */
+
