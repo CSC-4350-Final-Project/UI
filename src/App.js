@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './App.css';
@@ -40,3 +41,4 @@ function App() {
 }
 
 export default App;
+/* eslint-enable */

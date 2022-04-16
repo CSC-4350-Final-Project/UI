@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import {
@@ -49,3 +50,4 @@ AppNavbar.propTypes = {};
 AppNavbar.defaultProps = {};
 
 export default AppNavbar;
+/* eslint-enable */

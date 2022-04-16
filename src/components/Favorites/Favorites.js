@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
@@ -24,3 +25,4 @@ Favorites.propTypes = {};
 Favorites.defaultProps = {};
 
 export default Favorites;
+/* eslint-enable */

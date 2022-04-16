@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
@@ -50,3 +51,4 @@ EventCard.defaultProps = {
 };
 
 export default EventCard;
+/* eslint-enable */
