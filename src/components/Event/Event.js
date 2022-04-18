@@ -12,10 +12,7 @@ function Event() {
   const auth = useAuth();
   const [event, setEvent] = useState();
   const [comments, setComments] = useState();
-
-  function goingChanged() {
-    // console.info(`Updating going status to: ${change}`);
-  }
+  const [goingStatus, setGoingStatus] = useState();
 
   function shareEvent() {
     // console.info('Sharing an event!');
@@ -25,6 +22,37 @@ function Event() {
   function favoriteEvent() {
     // console.info('Hit favorite on an event!');
     // favorite event fetch call goes here
+  }
+
+  async function getGoingStatus() {
+    const eventId = params.id;
+
+    const fetchedStatus = await (await fetch(
+      `${process.env.REACT_APP_DOMAIN}/event/${eventId}/going`,
+      { headers: auth.headers() },
+    )).json();
+
+    setGoingStatus(fetchedStatus);
+  }
+
+  async function goingChanged(value) {
+    const eventId = params.id;
+
+    const body = JSON.stringify({
+      id: goingStatus.id || null,
+      dateUpdated: new Date(),
+      value,
+    });
+
+    const headers = {
+      ...auth.headers(), 'Content-Type': 'application/json',
+    };
+
+    await (await fetch(`${process.env.REACT_APP_DOMAIN}/event/${eventId}/going`, {
+      method: 'POST', headers, body,
+    })).json();
+
+    await getGoingStatus();
   }
 
   async function getEvent() {
@@ -56,17 +84,22 @@ function Event() {
   useEffect(() => {
     getEvent();
     getComments();
+    getGoingStatus();
   }, []);
 
   return (
     <Container>
       <EventInfo event={event} />
-      <EventActions
-        event={event}
-        shareEvent={() => shareEvent()}
-        favoriteEvent={() => favoriteEvent()}
-        goingChanged={() => goingChanged()}
-      />
+      {auth.authed
+        && (
+          <EventActions
+            event={event}
+            shareEvent={() => shareEvent()}
+            favoriteEvent={() => favoriteEvent()}
+            goingChanged={(status) => goingChanged(status)}
+            goingStatus={goingStatus ? goingStatus.status : null}
+          />
+        )}
       <EventComments
         event={event}
         comments={comments}

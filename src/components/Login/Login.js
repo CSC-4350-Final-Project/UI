@@ -15,7 +15,9 @@ function Login({ register }) {
   const [form, setForm] = useState({ email: '', password: '', username: '' });
   const auth = useAuth();
 
-  async function loginRegister() {
+  async function loginRegister(e) {
+    e.preventDefault();
+
     if (!form.email && !form.password && (!register || !form.username)) {
       return;
     }
@@ -34,21 +36,21 @@ function Login({ register }) {
       alert(res.message);
     }
 
-    setForm({ password: '', username: '' });
+    setForm({ password: '' });
   }
 
   return auth.authed ? <Navigate to="/" replace /> : (
     <Container>
-      <Row className="mt-3">
-        <Col className="mx-auto" xs={12} sm={4}>
-          <h4>
-            {register ? 'Register' : 'Login'}
-          </h4>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="mx-auto" xs={12} sm={4}>
-          <Form onSubmit={() => loginRegister()}>
+      <Form onSubmit={(e) => loginRegister(e)}>
+        <Row className="mt-3">
+          <Col className="mx-auto" xs={12} sm={4}>
+            <h4>
+              {register ? 'Register' : 'Login'}
+            </h4>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="mx-auto" xs={12} sm={4}>
             {register
               && (
                 <Form.Group className="mb-2">
@@ -64,24 +66,24 @@ function Login({ register }) {
               <Form.Label>Password</Form.Label>
               <Form.Control required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} type="password" />
             </Form.Group>
-          </Form>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col className="mx-auto" xs={12} sm={4}>
-          <div>
-            <Button onClick={() => loginRegister()} variant="primary">{register ? 'Register' : 'Login'}</Button>
-          </div>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col className="mx-auto" xs={12} sm={4}>
-          <div>
-            {register ? <Link to="/login">Back to login</Link>
-              : <Link to="/register">Or click here to register</Link>}
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col className="mx-auto" xs={12} sm={4}>
+            <div>
+              <Button type="submit" variant="primary">{register ? 'Register' : 'Login'}</Button>
+            </div>
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col className="mx-auto" xs={12} sm={4}>
+            <div>
+              {register ? <Link to="/login">Back to login</Link>
+                : <Link to="/register">Or click here to register</Link>}
+            </div>
+          </Col>
+        </Row>
+      </Form>
     </Container>
   );
 }
