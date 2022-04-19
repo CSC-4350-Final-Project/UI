@@ -24,7 +24,7 @@ EventComment.propTypes = {
 };
 
 EventComment.defaultProps = {
-    comment: null,
+  comment: null,
 };
 
 export default EventComment;

@@ -1,10 +1,10 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
 import {
-    Button,
-    Col,
-    Form,
-    Row,
+  Button,
+  Col,
+  Form,
+  Row,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -46,7 +46,7 @@ function LeaveComment({ submitComment }) {
   );
 }
 LeaveComment.propTypes = {
-    submitComment: PropTypes.func,
+  submitComment: PropTypes.func,
 };
 
 LeaveComment.defaultProps = { submitComment: null };

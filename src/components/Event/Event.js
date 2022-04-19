@@ -13,19 +13,19 @@ function Event() {
   const [event, setEvent] = useState();
   const [comments, setComments] = useState();
 
-    function goingChanged() {
+  function goingChanged() {
     // console.info(`Updating going status to: ${change}`);
-    }
+  }
 
-    function shareEvent() {
+  function shareEvent() {
     // console.info('Sharing an event!');
     // share event fetch call goes here
-    }
+  }
 
-    function favoriteEvent() {
+  function favoriteEvent() {
     // console.info('Hit favorite on an event!');
     // favorite event fetch call goes here
-    }
+  }
 
   async function getEvent() {
     const eventId = params.id;
@@ -74,8 +74,8 @@ function Event() {
         showLeaveComment={auth.authed}
       />
 
-        </Container>
-    );
+    </Container>
+  );
 }
 
 export default Event;

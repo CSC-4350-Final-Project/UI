@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders header sentence', () => {
+  // eslint-disable-next-line react/react-in-jsx-scope
   render(<App />);
-  const h4Element = screen.getByText("Upcoming events");
+  const h4Element = screen.getByText('Upcoming events');
   expect(h4Element).toBeInTheDocument();
 });
