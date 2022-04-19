@@ -21,7 +21,9 @@ function User() {
   function userInfo() {
     fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
       .then((response) => response.json())
-      .then((data) => { setId(data.user_id); setUsername(data.username); setEmail(data.email); });
+      .then((data) => {
+        setId(data.user_id); setUsername(data.username); setEmail(data.email);
+      });
   }
   useEffect(() => { userInfo(); }, []);
 

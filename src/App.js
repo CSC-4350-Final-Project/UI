@@ -5,7 +5,6 @@ import EventCard from './components/EventCard/EventCard';
 
 function App() {
   const [events, setEvents] = useState([]);
-
   async function getHomePageEvents() {
     setEvents([]);
     const res = await (await fetch(`${process.env.REACT_APP_DOMAIN}/homepage`)).json();
@@ -20,7 +19,7 @@ function App() {
     <Container>
       <Row>
         <Col className="mt-3 text-center">
-          <h4>Upcoming events</h4>
+          <h2>Upcoming events</h2>
         </Col>
       </Row>
       <Row>
