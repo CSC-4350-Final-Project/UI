@@ -11,7 +11,7 @@ function Favorites() {
                     <Card.Title className="text-align">Name</Card.Title>
                     <Card.Text className="text-align">Date</Card.Text>
                     <button className="button-align" type="button">
-                        <a href="/favorite/{user_id}">Event Details</a>
+                        <a href="/favorite/{email}">Event Details</a>
                     </button>
                     <button className="button-align" type="button">Remove</button>
                 </Card.Body>
