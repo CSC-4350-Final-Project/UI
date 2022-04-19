@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import moment from 'moment';
 import './EventCard.css';
-//import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 function EventCard({
     id, image, name, date,
 }) {
     const [formattedDate, setFormattedDate] = useState();
-
     useEffect(() => {
         setFormattedDate(moment(date).isValid() ? moment(date).format('MMMM DD, YYYY LT') : 'TBA');
     }, []);
