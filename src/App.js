@@ -19,7 +19,7 @@ function App() {
     <Container>
       <Row>
         <Col className="mt-3 text-center">
-          <h2>Upcoming Events</h2>
+          <h2>Upcoming events</h2>
         </Col>
       </Row>
       <Row>
