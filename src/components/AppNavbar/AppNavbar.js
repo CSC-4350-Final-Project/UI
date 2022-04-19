@@ -28,6 +28,7 @@ function AppNavbar() {
           <Nav>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
+            <Nav.Link as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>
             <div className="logout-button">
               <Nav.Link as={Link} to="/user/{user_id}">
                 <Avatar />
