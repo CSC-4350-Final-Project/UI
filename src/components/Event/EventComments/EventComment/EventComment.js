@@ -5,26 +5,26 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 function EventComment({ comment }) {
-  return (
-    <Row className="p-2">
-      <Col xs={12} sm={2}><Link to={`/user/${comment.user_id}`}>{comment.username}</Link></Col>
-      <Col xs={12} sm={8}><span>{comment.comment}</span></Col>
-      <Col xs={12} sm={2}><span>{moment(comment.date).fromNow()}</span></Col>
-    </Row>
-  );
+    return (
+        <Row className="p-2">
+            <Col xs={12} sm={2}><Link to={`/user/${comment.user_id}`}>{comment.username}</Link></Col>
+            <Col xs={12} sm={8}><span>{comment.comment}</span></Col>
+            <Col xs={12} sm={2}><span>{moment(comment.date).fromNow()}</span></Col>
+        </Row>
+    );
 }
 
 EventComment.propTypes = {
-  comment: PropTypes.shape({
-    user_id: PropTypes.number,
-    username: PropTypes.string,
-    comment: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
-  }),
+    comment: PropTypes.shape({
+        user_id: PropTypes.number,
+        username: PropTypes.string,
+        comment: PropTypes.string,
+        date: PropTypes.instanceOf(Date),
+    }),
 };
 
 EventComment.defaultProps = {
-  comment: null,
+    comment: null,
 };
 
 export default EventComment;

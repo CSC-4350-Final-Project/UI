@@ -7,55 +7,55 @@ import EventComments from './EventComments/EventComments';
 import EventInfo from './EventInfo/EventInfo';
 
 function Event() {
-  const params = useParams();
-  const [event, setEvent] = useState();
+    const params = useParams();
+    const [event, setEvent] = useState();
 
-  function goingChanged() {
+    function goingChanged() {
     // console.info(`Updating going status to: ${change}`);
-  }
+    }
 
-  function shareEvent() {
+    function shareEvent() {
     // console.info('Sharing an event!');
     // share event fetch call goes here
-  }
+    }
 
-  function favoriteEvent() {
+    function favoriteEvent() {
     // console.info('Hit favorite on an event!');
     // favorite event fetch call goes here
-  }
+    }
 
-  function submitComment() {
+    function submitComment() {
     // console.info('Submitting a comment!');
     // submit a user comment here
-  }
+    }
 
-  async function getEvent() {
-    const eventId = params.id;
-    const fetchedEvent = await (await fetch(`${process.env.REACT_APP_DOMAIN}/event_detail/${eventId}`)).json();
-    setEvent(fetchedEvent._embedded.events[0]);
-  }
+    async function getEvent() {
+        const eventId = params.id;
+        const fetchedEvent = await (await fetch(`${process.env.REACT_APP_DOMAIN}/event_detail/${eventId}`)).json();
+        setEvent(fetchedEvent._embedded.events[0]);
+    }
 
-  useEffect(() => {
-    getEvent();
-  }, []);
+    useEffect(() => {
+        getEvent();
+    }, []);
 
-  return (
-    <Container>
-      <EventInfo event={event} />
-      <EventActions
-        event={event}
-        shareEvent={() => shareEvent()}
-        favoriteEvent={() => favoriteEvent()}
-        goingChanged={() => goingChanged()}
-      />
-      <EventComments
-        event={event}
-        comments={[]}
-        submitComment={() => submitComment()}
-      />
+    return (
+        <Container>
+            <EventInfo event={event} />
+            <EventActions
+                event={event}
+                shareEvent={() => shareEvent()}
+                favoriteEvent={() => favoriteEvent()}
+                goingChanged={() => goingChanged()}
+            />
+            <EventComments
+                event={event}
+                comments={[]}
+                submitComment={() => submitComment()}
+            />
 
-    </Container>
-  );
+        </Container>
+    );
 }
 
 export default Event;
