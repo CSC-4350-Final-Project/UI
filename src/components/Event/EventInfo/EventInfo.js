@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Image, Row } from 'react-bootstrap';

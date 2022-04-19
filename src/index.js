@@ -1,11 +1,8 @@
-/* eslint-disable indent */
-/* eslint-disable react/jsx-closing-tag-location */
-/* eslint-disable react/jsx-indent */
 import React from 'react';
-
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// eslint-disable-next-line import/no-named-as-default
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Event from './components/Event/Event';
@@ -21,21 +18,21 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-  <AuthProvider>
-  <BrowserRouter>
-  <AppNavbar />
-  <Routes>
-  <Route path="login" element={<Login />} />
-  <Route path="register" element={<Login register />} />
-  <Route path="event/:id" element={<Event />} />
-  <Route path="search" element={<Search />} />
-  <Route path="user/:id" element={<User />} />
-  <Route path="favorites/:id" element={<Favorites />} />
-  <Route path="*" element={<App />} />
-				</Routes>
-			</BrowserRouter>
-		</AuthProvider>
-	</React.StrictMode>,
+    <AuthProvider>
+      <BrowserRouter>
+        <AppNavbar />
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Login register />} />
+          <Route path="event/:id" element={<Event />} />
+          <Route path="search" element={<Search />} />
+          <Route path="user/:id" element={<User />} />
+          <Route path="favorites/:id" element={<Favorites />} />
+          <Route path="*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
