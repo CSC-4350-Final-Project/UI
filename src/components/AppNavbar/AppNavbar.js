@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import { Avatar } from '@material-ui/core';
 import {
     Button,
     Container,
