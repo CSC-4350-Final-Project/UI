@@ -9,17 +9,25 @@ import {
 import SearchResults from './SearchResults/SearchResults';
 
 function Search() {
-  const [form, setForm] = useState({ keyword: '', postalCode: '' });
+  const [form, setForm] = useState({ keyword: '', postal_code: '' });
   const [searchResults, setSearchResults] = useState([]);
   const [searched, setSearched] = useState(false);
 
   async function search() {
-    // const body = JSON.stringify(form);
-    setSearchResults([]);
+    const body = JSON.stringify(form);
+
+    const fetchedResults = await (await fetch(`${process.env.REACT_APP_DOMAIN}/search`, {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'application/json' },
+    })).json();
+
+    setSearchResults(fetchedResults);
     setSearched(true);
   }
 
   function clear() {
+    setForm({ keyword: '', postal_code: '' });
     setSearchResults([]);
     setSearched(false);
   }
@@ -43,7 +51,7 @@ function Search() {
             <Col xs={12} sm={4}>
               <Form.Group className="m-2">
                 <Form.Label>Postal Code</Form.Label>
-                <Form.Control type="text" value={form.postalCode} onChange={(e) => setForm({ ...form, postalCode: e.target.value })} />
+                <Form.Control type="text" value={form.postal_code} onChange={(e) => setForm({ ...form, postal_code: e.target.value })} />
               </Form.Group>
             </Col>
           </Row>
