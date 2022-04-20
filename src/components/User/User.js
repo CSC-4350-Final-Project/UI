@@ -17,7 +17,7 @@ function User() {
   const [id, setId] = useState([]);
   const [username, setUsername] = useState([]);
   const [email, setEmail] = useState([]);
-  const [favorite, setFavorite]= useState([]);
+  const [favorite, setFavorite] = useState([]);
 
   function userInfo() {
     fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
@@ -26,11 +26,12 @@ function User() {
         setId(data.user_id); setUsername(data.username); setEmail(data.email);
       });
   }
-function otherInfo() {
+
+  function otherInfo() {
     fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
       .then((response) => response.json())
       .then((data) => {
-        setUsername(data.username); setFavorite(data.favorite)
+        setUsername(data.username); setFavorite(data.favorite);
       });
   }
   useEffect(() => { userInfo(); otherInfo(); }, []);
