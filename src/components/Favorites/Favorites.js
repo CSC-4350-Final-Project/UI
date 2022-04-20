@@ -1,21 +1,47 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { Card, Row, Col } from 'react-bootstrap';
+// import useAuth from '../../hooks/useAuth';
 
 function Favorites() {
+//  const auth = useAuth();
+
+  function getFavorites() {
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    }).then((response) => response.json())
+      .then((data) => console.log(data));
+  }
+  useEffect(() => { getFavorites(); }, []);
+
+  function removeFavorite() {
+    // this function removes the event from the Favorite page/database
+  }
+
+  function shareEvent() {
+    // this function lets the user share event in favorited events
+  }
   return (
     <div>
-      <h2 className="text-center">Favorite List</h2>
-      <Card style={{ width: '18rem', height: '100%' }}>
-        <Card.Img variant="top" />
-        <Card.Body>
-          <Card.Title className="text-align">Name</Card.Title>
-          <Card.Text className="text-align">Date</Card.Text>
-          <button className="button-align" type="button">
-            <a href="/favorite/{user_id}">Event Details</a>
-          </button>
-          <button className="button-align" type="button">Remove</button>
-        </Card.Body>
-      </Card>
+      {/* <h2 className="text-center">Favorite List</h2> */}
+      <Row xs={1} md={2} className="g-4">
+        {Array.from({ length: 4 }).map(() => (
+          <Col>
+            <Card>
+              <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Body>
+                <Card.Title>Event Title</Card.Title>
+                <Card.Text>
+                  Some text
+                </Card.Text>
+              </Card.Body>
+              <button onClick={() => removeFavorite()} className="button-align" type="button">Remove</button>
+              <button onClick={() => shareEvent()} className="button-align" type="button">Share</button>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+
     </div>
   );
 }

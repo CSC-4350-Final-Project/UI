@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -7,8 +7,30 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import useAuth from '../../../hooks/useAuth';
 
-function EventActions({ shareEvent, favoriteEvent, goingChanged }) {
+function EventActions({ shareEvent, goingChanged }) {
+  const [favorite, setFavorite] = useState(['Favorite Event']);
+  const auth = useAuth();
+  const [userEmail, setEmail] = useState([]);
+  const [eventIds, setEventId] = useState([]);
+
+  function favoriteEvent() {
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      auth,
+      body: JSON.stringify({
+        email: userEmail,
+        event_id: eventIds,
+      }),
+    }).then((response) => response.json())
+      .then((data) => {
+        setEmail(data.email); setEventId(data.eventIds);
+        console.log(data);
+      });
+    setFavorite('Favorited');
+  }
   return (
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
       <Col className="text-center p-2">
@@ -18,7 +40,7 @@ function EventActions({ shareEvent, favoriteEvent, goingChanged }) {
             <Button onClick={shareEvent} variant="outline-success" style={{ width: '150px' }}>Share Event</Button>
           </div>
           <div className="text-center">
-            <Button onClick={favoriteEvent} variant="outline-success" style={{ width: '150px' }}>Favorite Event</Button>
+            <Button onClick={() => favoriteEvent()} variant="outline-success" style={{ width: '150px' }}>{favorite}</Button>
           </div>
         </Stack>
       </Col>
@@ -40,13 +62,13 @@ function EventActions({ shareEvent, favoriteEvent, goingChanged }) {
 
 EventActions.propTypes = {
   shareEvent: PropTypes.func,
-  favoriteEvent: PropTypes.func,
+  //  favoriteEvent: PropTypes.func,
   goingChanged: PropTypes.func,
 };
 
 EventActions.defaultProps = {
   shareEvent: null,
-  favoriteEvent: null,
+  //  favoriteEvent: null,
   goingChanged: null,
 };
 
