@@ -26,8 +26,7 @@ function EventActions({ shareEvent, goingChanged }) {
       }),
     }).then((response) => response.json())
       .then((data) => {
-        setEmail(data.email); setEventId(data.eventIds);
-        console.log(data);
+        console.log(setEmail(data.email), setEventId(data.eventIds));
       });
     setFavorite('Favorited');
   }
