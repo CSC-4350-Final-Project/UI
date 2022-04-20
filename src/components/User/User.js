@@ -17,6 +17,7 @@ function User() {
   const [id, setId] = useState([]);
   const [username, setUsername] = useState([]);
   const [email, setEmail] = useState([]);
+  const [favorite, setFavorite]= useState([]);
 
   function userInfo() {
     fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
@@ -25,7 +26,14 @@ function User() {
         setId(data.user_id); setUsername(data.username); setEmail(data.email);
       });
   }
-  useEffect(() => { userInfo(); }, []);
+function otherInfo() {
+    fetch(`${process.env.REACT_APP_DOMAIN}/profile`, { headers: auth.headers() })
+      .then((response) => response.json())
+      .then((data) => {
+        setUsername(data.username); setFavorite(data.favorite)
+      });
+  }
+  useEffect(() => { userInfo(); otherInfo(); }, []);
 
   return (
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
@@ -48,6 +56,16 @@ function User() {
               <ListGroupItem>
                 <b>Username:&nbsp;</b>
                 {username}
+              </ListGroupItem>
+            </ListGroup>
+            <ListGroup className="list-groupother-flush">
+              <ListGroupItem>
+                <b>Username:&nbsp;</b>
+                {username}
+              </ListGroupItem>
+              <ListGroupItem>
+                <b>Favorites:&nbsp;</b>
+                {favorite}
               </ListGroupItem>
             </ListGroup>
             <Card.Body>
