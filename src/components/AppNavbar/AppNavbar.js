@@ -22,15 +22,15 @@ function AppNavbar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Event Planner</Navbar.Brand>
+        <a className="brand-name" href="/">Event Planner</a>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/search">Search</Nav.Link>
-            <Nav.Link as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>
+            <Nav.Link className="nav-links" as={Link} to="/">Home</Nav.Link>
+            <Nav.Link className="nav-links" as={Link} to="/search">Search</Nav.Link>
+            <Nav.Link className="nav-links" as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>
             <div className="logout-button">
-              <Nav.Link as={Link} to="/user/{user_id}">
+              <Nav.Link className="avatar" as={Link} to="/user/{user_id}">
                 <Avatar />
               </Nav.Link>
               {auth.authed

@@ -38,7 +38,8 @@
 }
 
 .mx-auto-card{ 
-    transition: transform .8s;  
+    transition: transform .8s;
+	text-align: center;  
     margin: 0 auto;
 }
 .mx-auto-card:hover {
