@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-// import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 function Favorites() {
-//  const auth = useAuth();
+  const auth = useAuth();
 
   function getFavorites() {
     fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: auth.headers(),
+      header: { 'Content-Type': 'application/json' },
     }).then((response) => response.json())
       .then((data) => console.log(data));
   }
@@ -21,6 +22,7 @@ function Favorites() {
   function shareEvent() {
     // this function lets the user share event in favorited events
   }
+
   return (
     <div>
       {/* <h2 className="text-center">Favorite List</h2> */}

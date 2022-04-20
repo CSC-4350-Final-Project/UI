@@ -18,8 +18,8 @@ function EventActions({ shareEvent, goingChanged }) {
   function favoriteEvent() {
     fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      auth,
+      headers: auth.headers(),
+      header: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: userEmail,
         event_id: eventIds,
@@ -27,9 +27,12 @@ function EventActions({ shareEvent, goingChanged }) {
     }).then((response) => response.json())
       .then((data) => {
         console.log(setEmail(data.email), setEventId(data.eventIds));
+        console.log(data);
       });
     setFavorite('Favorited');
+    console.log('favorited event');
   }
+
   return (
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
       <Col className="text-center p-2">
