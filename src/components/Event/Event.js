@@ -6,6 +6,7 @@ import './Event.css';
 import EventActions from './EventActions/EventActions';
 import EventComments from './EventComments/EventComments';
 import EventInfo from './EventInfo/EventInfo';
+import ShareEventModal from '../ShareEventModal/ShareEventModal';
 
 function Event() {
   const params = useParams();
@@ -13,10 +14,10 @@ function Event() {
   const [event, setEvent] = useState();
   const [comments, setComments] = useState();
   const [goingStatus, setGoingStatus] = useState();
+  const [showShareModal, setShowShareModal] = useState(false);
 
   function shareEvent() {
-    // console.info('Sharing an event!');
-    // share event fetch call goes here
+    setShowShareModal(true);
   }
 
   function favoriteEvent() {
@@ -88,26 +89,33 @@ function Event() {
   }, []);
 
   return (
-    <Container>
-      <EventInfo event={event} />
-      {auth.authed
-        && (
-          <EventActions
-            event={event}
-            shareEvent={() => shareEvent()}
-            favoriteEvent={() => favoriteEvent()}
-            goingChanged={(status) => goingChanged(status)}
-            goingStatus={goingStatus ? goingStatus.status : null}
-          />
-        )}
-      <EventComments
-        event={event}
-        comments={comments}
-        submitComment={(comment) => submitComment(comment)}
-        showLeaveComment={auth.authed}
-      />
-
-    </Container>
+    <>
+      <Container>
+        <EventInfo event={event} />
+        <EventActions
+          event={event}
+          shareEvent={() => shareEvent()}
+          favoriteEvent={() => favoriteEvent()}
+          goingChanged={(status) => goingChanged(status)}
+          goingStatus={goingStatus ? goingStatus.status : null}
+        />
+        <EventComments
+          event={event}
+          comments={comments}
+          submitComment={(comment) => submitComment(comment)}
+          showLeaveComment={auth.authed}
+        />
+        <ShareEventModal />
+      </Container>
+      {event && (
+        <ShareEventModal
+          showModal={showShareModal}
+          setShowModal={setShowShareModal}
+          name={event.name}
+          eventId={event.id}
+        />
+      )}
+    </>
   );
 }
 
