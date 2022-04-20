@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -7,31 +7,50 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 function EventActions({ shareEvent, goingChanged }) {
   const [favorite, setFavorite] = useState(['Favorite Event']);
   const auth = useAuth();
-  const [userEmail, setEmail] = useState([]);
-  const [eventIds, setEventId] = useState([]);
+  //  const [eventIds, setEventId] = useState([]);
+  const params = useParams();
 
-  function favoriteEvent() {
-    fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
-      method: 'POST',
-      headers: auth.headers(),
-      header: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: userEmail,
-        event_id: eventIds,
-      }),
+  function getFavorites() {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
     }).then((response) => response.json())
       .then((data) => {
-        console.log(setEmail(data.email), setEventId(data.eventIds));
-        console.log(data);
+        if (data.is_favorite) {
+          setFavorite('Favorited');
+        } else {
+          setFavorite('Favorite Event');
+        }
       });
-    setFavorite('Favorited');
-    console.log('favorited event');
   }
+
+  function favoriteEvent() {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then(() => {
+        getFavorites();
+      });
+  }
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
 
   return (
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
@@ -42,7 +61,7 @@ function EventActions({ shareEvent, goingChanged }) {
             <Button onClick={shareEvent} variant="outline-success" style={{ width: '150px' }}>Share Event</Button>
           </div>
           <div className="text-center">
-            <Button onClick={() => favoriteEvent()} variant="outline-success" style={{ width: '150px' }}>{favorite}</Button>
+            <Button onClick={() => favoriteEvent()} variant={favorite === 'Favorited' ? 'warning' : 'success'} style={{ width: '150px' }}>{favorite}</Button>
           </div>
         </Stack>
       </Col>
