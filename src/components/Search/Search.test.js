@@ -7,10 +7,8 @@ import Search from './Search';
 test('renders search header', () => {
   const name = 'Search for an Event';
 
-  // eslint-disable-next-line react/react-in-jsx-scope
   render(<Search />);
 
   const nameElement = screen.getByText(name);
-  // eslint-disable-next-line no-undef
   expect(nameElement).toBeInTheDocument();
 });
