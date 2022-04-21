@@ -26,11 +26,9 @@ function EventActions({ shareEvent, goingChanged }) {
       }),
     }).then((response) => response.json())
       .then((data) => {
-        console.log(setEmail(data.email), setEventId(data.eventIds));
-        console.log(data);
+
       });
     setFavorite('Favorited');
-    console.log('favorited event');
   }
 
   return (
