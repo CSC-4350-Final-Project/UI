@@ -10,7 +10,7 @@ function ShareEventModal({
   name,
   eventId,
 }) {
-  const [form, setForm] = useState({ type: '', value: '' });
+  const [email, setEmail] = useState('');
   const [formStatusDisplay, setFormStatusDisplay] = useState({ error: false, message: null });
   const auth = useAuth();
 
@@ -28,13 +28,14 @@ function ShareEventModal({
   }
 
   async function shareEvent() {
-    if (!form.type || !form.value) {
-      setFormStatusDisplay({ error: true, message: 'Both fields are required!' });
+    if (!email || email === '') {
+      setFormStatusDisplay({ error: true, message: 'Email is required!' });
     } else {
-      const body = JSON.stringify(form);
+      const url = window.location.href;
+      const body = JSON.stringify({ email, url });
 
       await (await fetch(
-        `${process.env.REACT_APP_DOMAIN}/event/${eventId}/share`,
+        `${process.env.REACT_APP_DOMAIN}/${eventId}/share_event`,
         {
           method: 'POST',
           headers: {
@@ -64,23 +65,11 @@ function ShareEventModal({
                 <p className={formStatusDisplay.error ? 'text-danger' : 'text-success'}>{formStatusDisplay.message}</p>
               </div>
             )}
-
-            Share this event with your
-            friends by selecting one of the following options:
-
+            Enter an email to share this event!
             <Form onSubmit={(e) => { e.preventDefault(); shareEvent(); }}>
               <div className="mt-4">
-                <Form.Check type="radio" onChange={() => setForm({ ...form, type: 'email' })} name="share-type" id="email" label="Email" />
-                <Form.Check type="radio" onChange={() => setForm({ ...form, type: 'phone' })} name="share-type" id="phone-number" label="Phone Number" />
-              </div>
-              <div className="mt-4">
-                <Form.Label>
-                  Enter&nbsp;
-                  {form.type === 'email' ? 'an Email' : 'a Phone Number'}
-                </Form.Label>
-                <Form.Control
-                  onChange={(event) => setForm({ ...form, value: event.target.value })}
-                />
+                <Form.Label>Email</Form.Label>
+                <Form.Control onChange={(event) => setEmail(event.target.value)} />
               </div>
             </Form>
           </Modal.Body>
