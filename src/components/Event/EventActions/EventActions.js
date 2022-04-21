@@ -30,8 +30,13 @@ function EventActions({
         ...auth.headers(),
       },
     }).then((response) => response.json())
-      .then((data) => console.log(data));
-    setFavorite('Favorited');
+      .then((data) => {
+        if (data.is_favorite) {
+          setFavorite('Favorited');
+        } else {
+          setFavorite('Favorite Event');
+        }
+      });
   }
 
   function favoriteEvent() {

@@ -11,7 +11,7 @@ function Favorites() {
       headers: auth.headers(),
       header: { 'Content-Type': 'application/json' },
     }).then((response) => response.json())
-      .then((data) => console.log(data));
+      .then(() => {});
   }
   useEffect(() => { getFavorites(); }, []);
 
