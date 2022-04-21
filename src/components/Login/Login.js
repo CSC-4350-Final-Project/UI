@@ -16,7 +16,9 @@ function Login({ register }) {
   const [form, setForm] = useState({ email: '', password: '', username: '' });
   const auth = useAuth();
 
-  async function loginRegister() {
+  async function loginRegister(e) {
+    e.preventDefault();
+
     if (!form.email && !form.password && (!register || !form.username)) {
       return;
     }
@@ -35,7 +37,7 @@ function Login({ register }) {
       alert(res.message);
     }
 
-    setForm({ password: '', username: '' });
+    setForm({ password: '' });
   }
 
   return auth.authed ? <Navigate to="/" replace /> : (

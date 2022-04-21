@@ -5,7 +5,6 @@ import EventCard from './components/EventCard/EventCard';
 
 function App() {
   const [events, setEvents] = useState([]);
-
   async function getHomePageEvents() {
     setEvents([]);
     const res = await (await fetch(`${process.env.REACT_APP_DOMAIN}/homepage`)).json();

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import * as React from 'react';
 
 function useAuth() {
@@ -19,7 +20,6 @@ function useAuth() {
       localStorage.removeItem('token');
       setAuthed(false);
     },
-    // eslint-disable-next-line consistent-return
     headers() {
       const token = localStorage.getItem('token');
 
