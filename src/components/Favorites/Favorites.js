@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import { Card, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -6,8 +6,8 @@ import useAuth from '../../hooks/useAuth';
 function Favorites() {
   const auth = useAuth();
   const params = useParams();
-  const [userIds, setUserIds] = useState([]);
-  const [eventIds, setEventIds] = useState([]);
+  //  const [userIds, setUserIds] = useState([]);
+  //  const [eventIds, setEventIds] = useState([]);
 
   function getFavorites() {
     const eventId = params.id;
@@ -17,8 +17,8 @@ function Favorites() {
         'Content-Type': 'application/json',
         ...auth.headers(),
       },
-    }).then((response) => response.json())
-      .then((data) => { setUserIds(data.userIds); setEventIds(data.eventIds); });
+    }).then((response) => response.json());
+    //  .then((data) => { setUserIds(data.userIds); setEventIds(data.eventIds); });
   }
   useEffect(() => { getFavorites(); }, []);
 
@@ -38,31 +38,9 @@ function Favorites() {
   }
 
   return (
-    <div className="App">
-      <h3>Favorite List</h3>
-      {eventIds}
-      {eventIds.map((eventId, index) => (
-        <div>
-          <div className="content">
-            <b>
-              User ID
-              {userIds[index]}
-              {' '}
-              -
-              {' '}
-            </b>
-            <b>
-              Event ID
-              {eventIds[index]}
-            </b>
-            {' '}
-            {' '}
-            <button type="button" onClick={() => removeFavorite(index)}>Remove</button>
-          </div>
-        </div>
-      ))}
-      ;
-
+    <div>
+      <h2 className="text-center">Favorite List</h2>
+      <button onClick={() => removeFavorite()} type="button">Remove</button>
     </div>
   );
 }

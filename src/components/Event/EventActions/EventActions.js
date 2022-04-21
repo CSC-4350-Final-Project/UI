@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -82,13 +83,13 @@ function EventActions({ shareEvent, goingChanged }) {
 
 EventActions.propTypes = {
   shareEvent: PropTypes.func,
-  //  favoriteEvent: PropTypes.func,
+  favoriteEvent: PropTypes.func,
   goingChanged: PropTypes.func,
 };
 
 EventActions.defaultProps = {
   shareEvent: null,
-  //  favoriteEvent: null,
+  favoriteEvent: null,
   goingChanged: null,
 };
 
