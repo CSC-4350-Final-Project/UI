@@ -30,7 +30,7 @@ function Search() {
         <Row className="mt-3 bg-light rounded p-2 shadow-sm">
           <Row>
             <Col>
-              <h4 className="text-center">Search for an Event</h4>
+              <h3 className="text-center">Search for an Event</h3>
             </Col>
           </Row>
           <Row>

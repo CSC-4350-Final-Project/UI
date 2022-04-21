@@ -2,7 +2,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// eslint-disable-next-line import/no-named-as-default
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Event from './components/Event/Event';

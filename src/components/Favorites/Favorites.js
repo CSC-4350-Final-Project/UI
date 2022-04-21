@@ -25,7 +25,7 @@ function Favorites() {
 
   return (
     <div>
-      {/* <h2 className="text-center">Favorite List</h2> */}
+      <h3 className="text-center">Favorite List</h3>
       <Row xs={1} md={2} className="g-4">
         {Array.from({ length: 4 }).map(() => (
           <Col>

@@ -10,6 +10,7 @@ import {
 import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useAuth from '../../hooks/useAuth';
+import './Login.css';
 
 function Login({ register }) {
   const [form, setForm] = useState({ email: '', password: '', username: '' });
@@ -41,9 +42,9 @@ function Login({ register }) {
     <Container>
       <Row className="mt-3">
         <Col className="mx-auto" xs={12} sm={4}>
-          <h4>
+          <h3 className="text-center">
             {register ? 'Register' : 'Login'}
-          </h4>
+          </h3>
         </Col>
       </Row>
       <Row>
@@ -68,17 +69,18 @@ function Login({ register }) {
         </Col>
       </Row>
       <Row className="mt-3">
-        <Col className="mx-auto" xs={12} sm={4}>
+        <Col className="mx-auto-button" xs={12} sm={4}>
           <div>
             <Button onClick={() => loginRegister()} variant="primary">{register ? 'Register' : 'Login'}</Button>
           </div>
         </Col>
       </Row>
       <Row className="mt-3">
-        <Col className="mx-auto" xs={12} sm={4}>
+        <Col className="mx-auto-button" xs={12} sm={4}>
           <div>
-            {register ? <Link to="/login">Back to login</Link>
-              : <Link to="/register">Or click here to register</Link>}
+            {register
+              ? <Button as={Link} to="/login">Back to login&nbsp;</Button>
+              : <Button className="login-button" as={Link} to="/register">Register</Button>}
           </div>
         </Col>
       </Row>

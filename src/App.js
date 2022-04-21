@@ -20,7 +20,7 @@ function App() {
     <Container>
       <Row>
         <Col className="mt-3 text-center">
-          <h4>Upcoming events</h4>
+          <h3 className="text-center">Upcoming events</h3>
         </Col>
       </Row>
       <Row>
