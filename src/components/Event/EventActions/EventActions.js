@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -8,17 +8,61 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 function EventActions({
   shareEvent,
-  favoriteEvent,
   goingChanged,
   goingStatus,
 }) {
+  const [favorite, setFavorite] = useState('Favorite Event');
   const auth = useAuth();
+  const params = useParams();
   const [showModal, setShowModal] = useState(false);
+  const [showFavoriteModal, setShowFavoriteModal] = useState(false);
+
+  function getFavorites() {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then((data) => {
+        if (data.is_favorite) {
+          setFavorite('Favorited');
+        } else {
+          setFavorite('Favorite Event');
+        }
+      });
+  }
+
+  function favoriteEvent() {
+    if (!auth.authed) {
+      setShowFavoriteModal(true);
+      return;
+    }
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then(() => {
+        getFavorites();
+      });
+  }
+
+  useEffect(() => {
+    if (auth.authed) {
+      getFavorites();
+    }
+  }, []);
 
   function setGoingChanged(value) {
     if (auth.authed) {
@@ -35,10 +79,10 @@ function EventActions({
           <h4>Interested?</h4>
           <Stack direction="vertical" gap={2}>
             <div className="text-center">
-              <Button onClick={shareEvent} variant="outline-success" style={{ width: '150px' }}>Share Event</Button>
+              <Button onClick={shareEvent} variant="success" style={{ width: '150px' }}>Share Event</Button>
             </div>
             <div className="text-center">
-              <Button onClick={favoriteEvent} variant="outline-success" style={{ width: '150px' }}>Favorite Event</Button>
+              <Button onClick={() => favoriteEvent()} variant={favorite === 'Favorited' ? 'warning' : 'success'} style={{ width: '150px' }}>{favorite}</Button>
             </div>
           </Stack>
         </Col>
@@ -72,20 +116,35 @@ function EventActions({
           </Button>
         </Modal.Footer>
       </Modal>
+      <Modal show={showFavoriteModal} onHide={() => setShowFavoriteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Favorite Event
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Please&nbsp;
+          <Link to="/login">sign in</Link>
+          &nbsp;to favorite this event!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowFavoriteModal(false)}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
 
 EventActions.propTypes = {
   shareEvent: PropTypes.func,
-  favoriteEvent: PropTypes.func,
   goingChanged: PropTypes.func,
   goingStatus: PropTypes.string,
 };
 
 EventActions.defaultProps = {
   shareEvent: null,
-  favoriteEvent: null,
   goingChanged: null,
   goingStatus: null,
 };

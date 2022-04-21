@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import './Event.css';
-import EventActions from './EventActions/EventActions';
 import EventComments from './EventComments/EventComments';
 import EventInfo from './EventInfo/EventInfo';
 import ShareEventModal from '../ShareEventModal/ShareEventModal';
+import EventActions from './EventActions/EventActions';
 
 function Event() {
   const params = useParams();
@@ -18,11 +18,6 @@ function Event() {
 
   function shareEvent() {
     setShowShareModal(true);
-  }
-
-  function favoriteEvent() {
-    // console.info('Hit favorite on an event!');
-    // favorite event fetch call goes here
   }
 
   async function getGoingStatus() {
@@ -38,7 +33,6 @@ function Event() {
 
   async function goingChanged(value) {
     const eventId = params.id;
-
     const body = JSON.stringify({
       id: goingStatus.id || null,
       dateUpdated: new Date(),
@@ -49,11 +43,15 @@ function Event() {
       ...auth.headers(), 'Content-Type': 'application/json',
     };
 
-    await (await fetch(`${process.env.REACT_APP_DOMAIN}/event/${eventId}/going`, {
-      method: 'POST', headers, body,
-    })).json();
+    try {
+      await (await fetch(`${process.env.REACT_APP_DOMAIN}/event/${eventId}/going`, {
+        method: 'POST', headers, body,
+      })).json();
 
-    await getGoingStatus();
+      await getGoingStatus();
+    } catch (e) {
+      auth.logout();
+    }
   }
 
   async function getEvent() {
@@ -88,14 +86,13 @@ function Event() {
     getGoingStatus();
   }, []);
 
-  return (
+  return event && (
     <>
       <Container>
         <EventInfo event={event} />
         <EventActions
           event={event}
           shareEvent={() => shareEvent()}
-          favoriteEvent={() => favoriteEvent()}
           goingChanged={(status) => goingChanged(status)}
           goingStatus={goingStatus ? goingStatus.status : null}
         />
@@ -107,14 +104,12 @@ function Event() {
         />
         <ShareEventModal />
       </Container>
-      {event && (
-        <ShareEventModal
-          showModal={showShareModal}
-          setShowModal={setShowShareModal}
-          name={event.name}
-          eventId={event.id}
-        />
-      )}
+      <ShareEventModal
+        showModal={showShareModal}
+        setShowModal={setShowShareModal}
+        name={event.name}
+        eventId={event.id}
+      />
     </>
   );
 }

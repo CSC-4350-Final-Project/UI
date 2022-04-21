@@ -1,3 +1,5 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-named-as-default-member */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -26,7 +28,7 @@ root.render(
           <Route path="event/:id" element={<Event />} />
           <Route path="search" element={<Search />} />
           <Route path="user/:id" element={<User />} />
-          <Route path="favorites/:id" element={<Favorites />} />
+          <Route path="favorites" element={<Favorites />} />
           <Route path="*" element={<App />} />
         </Routes>
       </BrowserRouter>
