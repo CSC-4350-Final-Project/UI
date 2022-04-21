@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/no-unused-prop-types */
+import React, { useState, useEffect } from 'react';
+
 import {
   Button,
   Col,
@@ -7,13 +8,54 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import useAuth from '../../../hooks/useAuth';
 
 function EventActions({
   shareEvent,
-  favoriteEvent,
   goingChanged,
   goingStatus,
 }) {
+  const [favorite, setFavorite] = useState(['Favorite Event']);
+  const auth = useAuth();
+  const params = useParams();
+
+  function getFavorites() {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then((data) => {
+        if (data.is_favorite) {
+          setFavorite('Favorited');
+        } else {
+          setFavorite('Favorite Event');
+        }
+      });
+  }
+
+  function favoriteEvent() {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then(() => {
+        getFavorites();
+      });
+  }
+
+  useEffect(() => {
+    getFavorites();
+  }, []);
   return (
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
       <Col className="text-center p-2">
@@ -23,7 +65,7 @@ function EventActions({
             <Button onClick={shareEvent} variant="outline-success" style={{ width: '150px' }}>Share Event</Button>
           </div>
           <div className="text-center">
-            <Button onClick={favoriteEvent} variant="outline-success" style={{ width: '150px' }}>Favorite Event</Button>
+            <Button onClick={() => favoriteEvent()} variant={favorite === 'Favorited' ? 'warning' : 'success'} style={{ width: '150px' }}>{favorite}</Button>
           </div>
         </Stack>
       </Col>

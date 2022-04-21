@@ -53,10 +53,10 @@ function Login({ register }) {
           <Col className="mx-auto" xs={12} sm={4}>
             {register
               && (
-                <Form.Group className="mb-2">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} type="text" />
-                </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Username</Form.Label>
+                <Form.Control required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} type="text" />
+              </Form.Group>
               )}
             <Form.Group>
               <Form.Label>Email</Form.Label>
