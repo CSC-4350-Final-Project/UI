@@ -22,19 +22,23 @@ function AppNavbar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Event Planner</Navbar.Brand>
+        <Navbar.Brand href="/">Event Planner</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
-            <Nav.Link as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>
+            <Nav.Link as={Link} to="/favorites">Favorites</Nav.Link>
             <div className="logout-button">
-              <Nav.Link as={Link} to="/user/{user_id}">
-                <Avatar />
-              </Nav.Link>
               {auth.authed
-                ? <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
+                ? (
+                  <>
+                    <Nav.Link as={Link} to="/user/{user_id}">
+                      <Avatar />
+                    </Nav.Link>
+                    <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
+                  </>
+                )
                 : <Button as={Link} to="/login" className="ml-auto" variant="outline-success">Login</Button>}
             </div>
           </Nav>

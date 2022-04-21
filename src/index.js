@@ -28,7 +28,7 @@ root.render(
           <Route path="event/:id" element={<Event />} />
           <Route path="search" element={<Search />} />
           <Route path="user/:id" element={<User />} />
-          <Route path="favorites/:id" element={<Favorites />} />
+          <Route path="favorites" element={<Favorites />} />
           <Route path="*" element={<App />} />
         </Routes>
       </BrowserRouter>
