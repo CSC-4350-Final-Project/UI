@@ -28,7 +28,7 @@ function AppNavbar() {
           <Nav>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/search">Search</Nav.Link>
-            <Nav.Link as={Link} to="/favorites">Favorites</Nav.Link>
+            {auth.authed && <Nav.Link as={Link} to="/favorites">Favorites</Nav.Link>}
             <div className="logout-button">
               {auth.authed
                 ? (
