@@ -1,53 +1,71 @@
-import React, { useEffect } from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+// import { Card, Row, Col } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 function Favorites() {
   const auth = useAuth();
+  const params = useParams();
+  const [userIds, setUserIds] = useState([]);
+  const [eventIds, setEventIds] = useState([]);
 
   function getFavorites() {
-    fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
       method: 'GET',
-      headers: auth.headers(),
-      header: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
     }).then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => { setUserIds(data.userIds); setEventIds(data.eventIds); });
   }
   useEffect(() => { getFavorites(); }, []);
 
   function removeFavorite() {
     // this function removes the event from the Favorite page/database
-  }
-
-  function shareEvent() {
-    // this function lets the user share event in favorited events
+    const eventId = params.id;
+    fetch(`${process.env.REACT_APP_DOMAIN}/favorites/${eventId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...auth.headers(),
+      },
+    }).then((response) => response.json())
+      .then(() => {
+        getFavorites();
+      });
   }
 
   return (
-    <div>
-      {/* <h2 className="text-center">Favorite List</h2> */}
-      <Row xs={1} md={2} className="g-4">
-        {Array.from({ length: 4 }).map(() => (
-          <Col>
-            <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
-              <Card.Body>
-                <Card.Title>Event Title</Card.Title>
-                <Card.Text>
-                  Some text
-                </Card.Text>
-              </Card.Body>
-              <button onClick={() => removeFavorite()} className="button-align" type="button">Remove</button>
-              <button onClick={() => shareEvent()} className="button-align" type="button">Share</button>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+    <div className="App">
+      <h3>Favorite List</h3>
+      {eventIds}
+      {eventIds.map((eventId, index) => (
+        <div>
+          <div className="content">
+            <b>
+              User ID
+              {userIds[index]}
+              {' '}
+              -
+              {' '}
+            </b>
+            <b>
+              Event ID
+              {eventIds[index]}
+            </b>
+            {' '}
+            {' '}
+            <button type="button" onClick={() => removeFavorite(index)}>Remove</button>
+          </div>
+        </div>
+      ))}
+      ;
 
     </div>
   );
 }
-
 Favorites.propTypes = {};
 Favorites.defaultProps = {};
 

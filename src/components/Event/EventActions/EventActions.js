@@ -13,7 +13,6 @@ import useAuth from '../../../hooks/useAuth';
 function EventActions({ shareEvent, goingChanged }) {
   const [favorite, setFavorite] = useState(['Favorite Event']);
   const auth = useAuth();
-  //  const [eventIds, setEventId] = useState([]);
   const params = useParams();
 
   function getFavorites() {
