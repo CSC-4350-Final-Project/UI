@@ -115,5 +115,4 @@ ShareEventModal.propTypes = {
 
 ShareEventModal.defaultProps = {
 };
-
 export default ShareEventModal;
