@@ -20,9 +20,11 @@ function EventCard({
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>{formattedDate}</Card.Text>
-          <button className="button-align" type="button">
-            <a href={`event/${id}`}>Event Details</a>
-          </button>
+          <div className="d-flex flex-row align-items-center justify-content-center">
+            <button className="button-align " type="button">
+              <a href={`event/${id}`}>Event Details</a>
+            </button>
+          </div>
         </Card.Body>
       </Card>
     </div>

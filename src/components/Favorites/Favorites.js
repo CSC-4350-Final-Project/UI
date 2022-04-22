@@ -1,50 +1,50 @@
-import React, { useEffect } from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
+import EventCard from '../EventCard/EventCard';
 
 function Favorites() {
   const auth = useAuth();
+  const [events, setEvents] = useState([]);
 
-  function getFavorites() {
-    fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
-      method: 'GET',
+  async function getFavorites() {
+    const fetchedFavorites = await (await fetch(`${process.env.REACT_APP_DOMAIN}/favorites`, {
       headers: auth.headers(),
-      header: { 'Content-Type': 'application/json' },
-    }).then((response) => response.json())
-      .then(() => {});
-  }
-  useEffect(() => { getFavorites(); }, []);
+    })).json();
 
-  function removeFavorite() {
-    // this function removes the event from the Favorite page/database
+    setEvents(fetchedFavorites);
   }
 
-  function shareEvent() {
-    // this function lets the user share event in favorited events
-  }
+  useEffect(() => {
+    getFavorites();
+  }, []);
 
   return (
-    <div>
-      <h3 className="text-center">Favorite List</h3>
-      <Row xs={1} md={2} className="g-4">
-        {Array.from({ length: 4 }).map(() => (
-          <Col>
-            <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
-              <Card.Body>
-                <Card.Title>Event Title</Card.Title>
-                <Card.Text>
-                  Some text
-                </Card.Text>
-              </Card.Body>
-              <button onClick={() => removeFavorite()} className="button-align" type="button">Remove</button>
-              <button onClick={() => shareEvent()} className="button-align" type="button">Share</button>
-            </Card>
-          </Col>
-        ))}
+    <Container>
+      <Row>
+        <Col className="mt-3 text-center">
+          <h2>Favorited Events</h2>
+        </Col>
       </Row>
-
-    </div>
+      <Row>
+        <Col style={{ gap: '25px' }} className="d-flex flex-row flex-wrap">
+          {events.length === 0 && (
+            <div className="mx-auto">
+              You have not favorited any events!
+            </div>
+          )}
+          {events.map((event, index) => (
+            <EventCard
+              key={index}
+              id={event.id}
+              image={event.images[0].url}
+              name={event.name}
+              date={event.dates.start.dateTime}
+            />
+          ))}
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

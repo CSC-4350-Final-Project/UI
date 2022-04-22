@@ -21,20 +21,17 @@ function AppNavbar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <a className="brand-name" href="/">Event Planner</a>
+        {auth.authed && <a className="brand-name" href="/">Event Planner</a>}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link className="nav-links" as={Link} to="/">Home</Nav.Link>
-            <Nav.Link className="nav-links" as={Link} to="/search">Search</Nav.Link>
-            <Nav.Link className="nav-links" as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>
-            <Nav.Link className="nav-links" as={Link} to="/user/{user_id}">
-              Profile
-            </Nav.Link>
+            {auth.authed && <Nav.Link className="nav-links" as={Link} to="/">Home</Nav.Link>}
+            {auth.authed && <Nav.Link className="nav-links" as={Link} to="/search">Search</Nav.Link>}
+            {auth.authed && <Nav.Link className="nav-links" as={Link} to="/favorites/{user_id}">Favorites</Nav.Link>}
+            {auth.authed && <Nav.Link className="nav-links" as={Link} to="/user/{user_id}">Profile</Nav.Link>}
             <div className="logout-button">
               {auth.authed
-                ? <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>
-                : <Button as={Link} to="/login" className="ml-auto" variant="outline-success">Login</Button>}
+                && <Button onClick={() => logout()} className="ml-auto" variant="outline-danger">Logout</Button>}
             </div>
           </Nav>
         </Navbar.Collapse>
