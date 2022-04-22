@@ -44,7 +44,7 @@ function Login({ register }) {
       <Form onSubmit={(e) => loginRegister(e)}>
         <Row className="mt-3">
           <Col className="mx-auto" xs={12} sm={4}>
-            <h4>
+            <h4 className="text-center">
               {register ? 'Register' : 'Login'}
             </h4>
           </Col>
@@ -53,10 +53,10 @@ function Login({ register }) {
           <Col className="mx-auto" xs={12} sm={4}>
             {register
               && (
-              <Form.Group className="mb-2">
-                <Form.Label>Username</Form.Label>
-                <Form.Control required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} type="text" />
-              </Form.Group>
+                <Form.Group className="mb-2">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control required value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} type="text" />
+                </Form.Group>
               )}
             <Form.Group>
               <Form.Label>Email</Form.Label>
@@ -78,8 +78,9 @@ function Login({ register }) {
         <Row className="mt-3">
           <Col className="mx-auto" xs={12} sm={4}>
             <div>
-              {register ? <Link to="/login">Back to login</Link>
-                : <Link to="/register">Or click here to register</Link>}
+              {register
+                ? <Button as={Link} to="/login">Back to login&nbsp;</Button>
+                : <Button as={Link} to="/register">Register</Button>}
             </div>
           </Col>
         </Row>

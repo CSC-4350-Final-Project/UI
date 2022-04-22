@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import './User.css';
 import {
   Col,
@@ -40,7 +39,7 @@ function User() {
     <Row className="mt-3 bg-light rounded p-2 shadow-sm">
       <Row>
         <Col>
-          <h2 className="text-center">Profile Page</h2>
+          <h3 className="text-center">Profile Page</h3>
           <Card className="user-card" style={{ width: '30rem' }}>
             <Card.Body>
               <Card.Title><h3>Personal Information</h3></Card.Title>
